@@ -35,7 +35,7 @@ class Color < JustEnum::Base
 end
 
 class Labels < JustEnum::Base
-  enum save: "Zapisz", cancel: "Anuluj"
+  enum({save: "Zapisz", cancel: "Anuluj"})
 end
 ```
 
@@ -77,7 +77,7 @@ You can define custom values for enums
 
 ```ruby
 class Labels < JustEnum::Enum
-  enum save: "Zapisz", cancel: "Anuluj"
+  enum({ save: "Zapisz", cancel: "Anuluj" })
 end
 ```
 
@@ -124,7 +124,7 @@ You can also omit the `extend` directive and use it in traditional way in constr
 
 ```ruby
 class ButtonPrimary
-  def initialize(type, color, label)
+  def initialize
     @type = ButtonType.primary
     @color = Color.success
     @label = Labels.save
@@ -215,7 +215,7 @@ Or you can go one step further and encapsulate enums in static methods
 # frozen_string_literal: true
 
 class Button < ViewComponent::Base
-  include Enums::ButtonType::Enum
+  include JustEnum::Enum
 
   class << self
     def primary(**args)
