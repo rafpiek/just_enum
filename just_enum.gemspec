@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Simple enum module extending Ruby with TypeScript like enums"
   spec.description   = "Module extends PORO classes in enums and generate helpers for other POROS using those enums"
-  spec.homepage      = "https://grubykodzi.pl"
+  spec.homepage      = "https://github.com/rafpiek/just_enum"
   spec.required_ruby_version = ">= 2.4.0"
 
 
