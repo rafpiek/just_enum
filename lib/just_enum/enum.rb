@@ -3,7 +3,11 @@ module JustEnum::Enum
   def enumerate(field_key, enum_class, field_value)
     has_hash_options = enum_class.options.is_a? Hash
     if has_hash_options
-      define_method("str_#{field_key.to_s}") { enum_class.options[field_value.to_sym] }
+      if enum_class.mirrored?
+        define_method("str_#{field_key.to_s}") { enum_class.options[field_value.to_sym] }
+      else
+        define_method("str_#{field_key.to_s}") { enum_class.options.find { |k, v| v.to_s == field_value.to_s }[1] }
+      end
       enum_class.options.each_pair do |key, value|
         define_method("#{enum_class.name.snakecase}_#{key.to_s}?") { field_value == value }
       end

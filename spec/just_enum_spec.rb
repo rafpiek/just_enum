@@ -8,7 +8,7 @@ class Color < JustEnum::Base
   enum %i[success danger], mirror: true
 end
 
-class Labels < JustEnum::Base
+class Label < JustEnum::Base
   enum save: "Zapisz", cancel: "Anuluj"
 end
 
@@ -16,7 +16,7 @@ class ButtonPrimary
   extend JustEnum::Enum
   enumerate :type, ButtonType, ButtonType.primary
   enumerate :color, Color, Color.success
-  enumerate :label, Labels, Labels.save
+  enumerate :label, Label, Label.save
 end
 
 RSpec.describe JustEnum do
@@ -44,7 +44,6 @@ RSpec.describe JustEnum do
 
   describe ButtonPrimary do
     let(:button_primary) { ButtonPrimary.new }
-
     it 'use ButtonType enum' do
       expect(button_primary._type).to eq ButtonType.primary
       expect(button_primary.button_type_primary?).to be_truthy
@@ -54,21 +53,43 @@ RSpec.describe JustEnum do
       expect(button_primary._color).to eq Color.success
       expect(button_primary.color_danger?).to be_falsey
       expect(button_primary.str_color).to eq "success"
+      expect(button_primary._label).to eq 'Zapisz'
+      expect(button_primary.label_save?).to be_truthy
+      expect(button_primary.label_cancel?).to be_falsey
+      expect(button_primary.str_label).to eq 'Zapisz'
     end
-
   end
 
-  describe Labels do
+  describe 'mirroring keys' do
+    let(:options) { { success: 'success', danger: 'danger' } }
+
+    it 'defines enum options' do
+      expect(Color.options).to eq options
+    end
+
+    it 'mirrors keys as strings' do
+      expect(Color.success).to eq 'success'
+      expect(Color.danger).to eq 'danger'
+    end
+  end
+
+  describe Label do
     let(:options) { { save: "Zapisz", cancel: "Anuluj" } }
 
     it 'defines enum options' do
-      expect(Labels.options).to eq options
+      expect(Label.options).to eq options
     end
 
     it 'defines options readers' do
       options.each_pair do |key, value|
-        expect(Labels.send(key)).to eq value
+        expect(Label.send(key)).to eq value
       end
     end
+  end
+
+  describe '.mirrored?' do
+    it { expect(ButtonType.mirrored?).to be_falsey }
+    it { expect(Color.mirrored?).to be_truthy }
+    it { expect(Label.mirrored?).to be_falsey }
   end
 end

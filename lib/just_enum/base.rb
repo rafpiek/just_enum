@@ -7,6 +7,7 @@ module JustEnum
             hash[i] = i.to_s
           end
         end
+        define_singleton_method(:mirrored?) { mirror }
         define_singleton_method(:options) { options }
         case options
         when Array
