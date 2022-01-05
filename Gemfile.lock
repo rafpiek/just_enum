@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    just_enum (0.1.0)
+    just_enum (0.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -52,4 +52,4 @@ DEPENDENCIES
   rubocop (~> 1.7)
 
 BUNDLED WITH
-   2.2.22
+   2.2.32

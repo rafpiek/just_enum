@@ -9,7 +9,7 @@ class Color < JustEnum::Base
 end
 
 class Label < JustEnum::Base
-  enum save: "Zapisz", cancel: "Anuluj"
+  enum({save: "Zapisz", cancel: "Anuluj"})
 end
 
 class ButtonPrimary
