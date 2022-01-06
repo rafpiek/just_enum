@@ -9,12 +9,12 @@ module JustEnum::Enum
         define_method("str_#{field_key.to_s}") { enum_class.options.find { |k, v| v.to_s == field_value.to_s }[1] }
       end
       enum_class.options.each_pair do |key, value|
-        define_method("#{enum_class.name.snakecase}_#{key.to_s}?") { field_value == value }
+        define_method("#{snakecase(enum_class.name)}_#{key.to_s}?") { field_value == value }
       end
     else
       define_method("str_#{field_key.to_s}") { enum_class.options[field_value].to_s }
       enum_class.options.each_with_index do |opt, index|
-        define_method("#{enum_class.name.snakecase}_#{opt.to_s}?") { field_value == index }
+        define_method("#{snakecase(enum_class.name)}_#{opt.to_s}?") { field_value == index }
       end
     end
     define_method("_#{field_key.to_s}") { field_value }

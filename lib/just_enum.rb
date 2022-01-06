@@ -6,5 +6,4 @@ require_relative "just_enum/enum"
 
 module JustEnum
   class Error < StandardError; end
-  # Your code goes here...
 end
